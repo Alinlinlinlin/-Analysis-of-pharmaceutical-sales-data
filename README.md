@@ -1,14 +1,37 @@
 # 医药销售数据分析
 
+# 1.提出问题
+
+从销售数据中分析出以下业务指标： 1）月均消费次数2）月均消费金额3）客单价4）消费趋势
+
+# 2.字段描述
+
+>该表记录了一段时间内药品销售信息，包含7个字段，6598条信息，字段描述如下：
+
+>购药时间：用户购买药品的时间包含星期
+
+>社保卡号：用户购买使用社保卡号
+
+>商品编码：销售商品编码
+
+>商品名称：销售商品名称
+
+>销售数量：商品销售数量
+
+>应收金额：商品实际标价
+
+>实收金额：用户实际支付商品价格
+
+
 
 ```python
+#导入数据分析包
 import pandas as pd
 ```
 
-**1.数据读取**
-
 
 ```python
+#数据读取
 Saledf=pd.read_excel('医院销售数据.xlsx',dtype=str)
 Saledf.head()
 ```
@@ -102,6 +125,7 @@ Saledf.head()
 
 
 ```python
+#查看数据信息
 Saledf.info()
 ```
 
@@ -119,11 +143,13 @@ Saledf.info()
     memory usage: 359.8+ KB
     
 
-**2.选择子集**
+# 3.数据清洗
+
+## （1）选择子集 
 
 
 ```python
-#选择子集
+#选择子集 本次分析表中的字段在本次分析中都可用故在此不选择子集。一般选择子集可用loc函数通过索引来选择
 Saledf.loc[0:4,'购药时间':'实收金额']
 ```
 
@@ -214,7 +240,7 @@ Saledf.loc[0:4,'购药时间':'实收金额']
 
 
 
-** 3.列重命名 **
+## （2）列重命名 
 
 
 ```python
@@ -226,6 +252,11 @@ colnameDic={'购药时间':'销售时间'}
 
 ```python
 Saledf.rename(columns=colnameDic,inplace=True)
+'''
+inplace=False，数据框本身不会变，而会创建一个改动后新的数据框，
+默认的inplace是False
+inplace=True，数据框本身会改动
+'''
 Saledf.head()
 ```
 
@@ -316,7 +347,17 @@ Saledf.head()
 
 
 
-** 4.缺失值处理**
+# （3）缺失值处理
+
+python缺失值有3种：
+
+1）Python内置的None值
+
+2）在pandas中，将缺失值表示为NA，表示不可用not available。
+
+3）对于数值数据，pandas使用浮点值NaN（Not a Number）表示缺失数据。
+
+None是Python的一种数据类型，NaN是浮点类型 两个都用作空值
 
 
 ```python
@@ -1005,7 +1046,7 @@ Saledf
 
 
 
-** 5.数据一致化**
+# 5.数据一致化
 
 
 ```python
@@ -1296,7 +1337,7 @@ Saledf.info()
     memory usage: 409.5+ KB
     
 
-** 6.数据排序**
+# 6.数据排序
 
 
 ```python
@@ -1493,7 +1534,7 @@ Saledf.head()
 
 
 
-**6.异常值处理**
+# 7.异常值处理
 
 
 ```python
@@ -1596,7 +1637,9 @@ print('删除异常值后：',Saledf.shape)
     删除异常值后： (6509, 7)
     
 
-** 7.数据建模**
+# 7.数据建模
+
+** (1)月均消费次数 **
 
 
 ```python
@@ -1639,5 +1682,177 @@ Saledf['销售时间'].min()
 
 ```python
 #按销售时间升序排序
-
+kpi1_Df=kpi1_Df.sort_values(by='销售时间',ascending=True)
+#重命名列名（index）
+kpi1_Df.reset_index(drop=True,inplace=True)
+kpi1_Df.head()
 ```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>销售时间</th>
+      <th>社保卡号</th>
+      <th>商品编码</th>
+      <th>商品名称</th>
+      <th>销售数量</th>
+      <th>应收金额</th>
+      <th>实收金额</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2018-01-01</td>
+      <td>001616528</td>
+      <td>236701</td>
+      <td>强力VC银翘片</td>
+      <td>6.0</td>
+      <td>82.8</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2018-01-01</td>
+      <td>0013448228</td>
+      <td>861507</td>
+      <td>苯磺酸氨氯地平片(安内真)</td>
+      <td>1.0</td>
+      <td>9.5</td>
+      <td>8.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2018-01-01</td>
+      <td>0012697828</td>
+      <td>861464</td>
+      <td>复方利血平片(复方降压片)</td>
+      <td>4.0</td>
+      <td>10.0</td>
+      <td>9.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018-01-01</td>
+      <td>0010616728</td>
+      <td>865099</td>
+      <td>硝苯地平片(心痛定)</td>
+      <td>2.0</td>
+      <td>3.4</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2018-01-01</td>
+      <td>0010060654328</td>
+      <td>861458</td>
+      <td>复方利血平氨苯蝶啶片(北京降压0号)</td>
+      <td>1.0</td>
+      <td>10.3</td>
+      <td>9.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#销售时间最大值
+startTime=kpi1_Df.loc[0,'销售时间']
+startTime
+```
+
+
+
+
+    Timestamp('2018-01-01 00:00:00')
+
+
+
+
+```python
+#销售时间最小值
+endTime=kpi1_Df.loc[totalI-1,'销售时间']
+endTime
+```
+
+
+
+
+    Timestamp('2018-07-19 00:00:00')
+
+
+
+
+```python
+#计算天数
+daysI=(endTime-startTime).days
+#月份数：运算符“//”表示取整除
+#返回商的整数部分，例如9//2输出的结果是4
+monthsI=daysI//30
+print('月份数：',monthsI)
+```
+
+    月份数： 6
+    
+
+
+```python
+#月消费次数
+kpi1_I=totalI//monthsI
+print('业务指标1：月均消费次数',kpi1_I )
+```
+
+    业务指标1：月均消费次数 890
+    
+
+**(2)月均消费金额**
+
+
+```python
+#月均消费金额=总消费金额/月份数
+#总消费金额
+totalMoneyF=Saledf.loc[:,'实收金额'].sum()
+monthMoneyF=totalMoneyF/monthsI
+print('业务指标2：月均消费金额=',monthMoneyF)
+```
+
+    业务指标2：月均消费金额= 50672.494999999624
+    
+
+**(3)客单价**
+
+
+```python
+#客单总消费金额/总消费次数
+'''
+totalMoneyF 为总消费金额
+totalI 为总消费次数
+
+'''
+pct=totalMoneyF/totalI 
+print('业务指标3：客单价',pct)
+```
+
+    业务指标3：客单价 56.882127221702106
+    
