@@ -1434,6 +1434,7 @@ Saledf.head()
 
 
 ```python
+#描述指标：查看出“销售数量”值不能小于0
 Saledf.describe()
 ```
 
