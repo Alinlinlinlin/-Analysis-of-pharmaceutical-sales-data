@@ -1,10 +1,10 @@
 # 医药销售数据分析
 
-# 1.提出问题
+## 1.提出问题
 
 从销售数据中分析出以下业务指标： 1）月均消费次数2）月均消费金额3）客单价4）消费趋势
 
-# 2.字段描述
+## 2.字段描述
 
 >该表记录了一段时间内药品销售信息，包含7个字段，6598条信息，字段描述如下：
 
@@ -130,9 +130,9 @@ Saledf.info()
     memory usage: 359.8+ KB
     
 
-# 3.数据清洗
+## 3.数据清洗
 
-## （1）选择子集 
+### （1）选择子集 
 
 
 ```python
@@ -214,7 +214,7 @@ Saledf.loc[0:4,'购药时间':'实收金额']
 
 
 
-## （2）列重命名 
+### （2）列重命名 
 
 
 ```python
@@ -238,19 +238,6 @@ Saledf.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -321,7 +308,7 @@ Saledf.head()
 
 
 
-# （3）缺失值处理
+### （3）缺失值处理
 
 python缺失值有3种：
 
@@ -376,19 +363,6 @@ Saledf
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1020,7 +994,7 @@ Saledf
 
 
 
-# 5.数据一致化
+### （4）数据一致化
 
 
 ```python
@@ -1059,19 +1033,6 @@ Saledf.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1162,19 +1123,6 @@ Saledf.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1311,7 +1259,7 @@ Saledf.info()
     memory usage: 409.5+ KB
     
 
-# 6.数据排序
+### （5）数据排序
 
 
 ```python
@@ -1331,19 +1279,6 @@ Saledf.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1425,19 +1360,6 @@ Saledf.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1508,7 +1430,7 @@ Saledf.head()
 
 
 
-# 7.异常值处理
+### （6）异常值处理
 
 
 ```python
@@ -1519,19 +1441,6 @@ Saledf.describe()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1611,9 +1520,9 @@ print('删除异常值后：',Saledf.shape)
     删除异常值后： (6509, 7)
     
 
-# 7.数据建模
+## 3.数据建模
 
-** (1)月均消费次数 **
+### （1）月均消费次数 
 
 
 ```python
@@ -1666,19 +1575,6 @@ kpi1_Df.head()
 
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1800,7 +1696,7 @@ print('业务指标1：月均消费次数',kpi1_I )
     业务指标1：月均消费次数 890
     
 
-**(2)月均消费金额**
+### （2）月均消费金额
 
 
 ```python
@@ -1814,7 +1710,7 @@ print('业务指标2：月均消费金额=',monthMoneyF)
     业务指标2：月均消费金额= 50672.494999999624
     
 
-**(3)客单价**
+### （3）客单价
 
 
 ```python
